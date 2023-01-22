@@ -4,7 +4,7 @@ import pandas as pd
 import os
 import pywikibot
 from pywikibot import exceptions
-import datetime
+from datetime import datetime
 
 dire = str(os.getcwd())
 print(dire)
