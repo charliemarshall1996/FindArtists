@@ -79,3 +79,4 @@ FindArtists is a Python application that uses the Pywikibot library to find info
 + Custom export filename
 
 ## License
+This project is licensed under the GNU GPLv3 - see the LICENSE.md file for details.
