@@ -3,12 +3,31 @@ Finds information on musicians and recording artists using pywikibot.
 
 ## Description
 
+FindArtists is a Python application that uses the Pywikibot library to find information on musicians and recording artists from Wikipedia.
+
+##Prerequisites
++ Python 3.6 or higher
++ Pywikibot library
++ Padas Library
+
+##Installation
++ Clone the repository or download the source code.
++ Install Pywikibot library using pip: pip install pywikibot pandas
+
+## How to Use
+1. Prepare an input spreadsheet containing the artist names. The spreadsheet should have a header row with a column named "Name".
+2. Open a terminal window and navigate to the directory containing the FindArtists.py file.
+3. Run the command python FindArtists.py.
+4. Enter the filename of the input spreadsheet, or press enter to use the default path.
+5. Enter the filename for the output spreadsheet, or press enter to use the default path.
+6. The application will search Wikipedia and Wikidata for each artist in the input spreadsheet and export artist information to the output spreadsheet.
+
+## Output Spreadsheet Fields
+
 ## Features
 + Imports from CSV
 + Exports to CSV
 + Custom export file location
 + Custom export filename
-
-## How to Use
 
 ## License
