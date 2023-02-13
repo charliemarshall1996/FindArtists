@@ -1,3 +1,19 @@
+# FindArtists - Python app to find information on artists and export to a spreadsheet
+# Copyright (C) 2023 Charlie Marshall
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import requests as rq
 import json
 import pandas as pd
@@ -6,17 +22,20 @@ import pywikibot
 from pywikibot import exceptions
 from datetime import datetime
 
+#Define Default Paths
 dire = str(os.getcwd())
 print(dire)
-default_input_path = dire + '.\\Test_Data'
+default_input_path = dire + '.\\import_files'
 default_output_path = dire + '.\\FindArtists Exported Files'
 default_suppression_path = dire + '.\\Suppression File'
 
 
-#in_filepath = "/Users/charliemarshall/Desktop/"
-in_filename = "names_of_artists.csv"
-out_filename = "test"
-#out_filepath = ""
+in_filepath = input("/Users/charliemarshall/Desktop/")
+in_filename = input("names_of_artists.csv")
+out_filename = input("test")
+out_filepath = input()
+
+
 
 class artist_finder:
     def __init__(self, input_filename, output_filename, input_filepath=default_input_path, output_filepath=default_output_path):
@@ -87,6 +106,7 @@ class artist_finder:
                 extracted_file = pd.read_csv(f'{self.input_filepath}\\{self.input_filename}', index_col=False, engine='python') #Extract as csv
             print("file extracted")
             return extracted_file #Return the file
+            
         except pd.errors.EmptyDataError:
             print("No data to extract in file:" + self.input_filename)
         except FileNotFoundError as err: #Need to define exception type
