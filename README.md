@@ -15,7 +15,7 @@ FindArtists is a Python application that uses the Pywikibot library to find info
 + Install Pywikibot library using pip: pip install pywikibot pandas
 
 ## How to Use
-1. Prepare an input spreadsheet containing the artist names. The spreadsheet should have a header row with a column named "Name".
+1. Prepare an input spreadsheet containing the artist names. The artist names should be in the first column of the spreadsheet.
 2. Open a terminal window and navigate to the directory containing the FindArtists.py file.
 3. Run the command python FindArtists.py.
 4. Enter the filename of the input spreadsheet, or press enter to use the default path.
