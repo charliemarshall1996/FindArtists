@@ -23,6 +23,54 @@ FindArtists is a Python application that uses the Pywikibot library to find info
 6. The application will search Wikipedia and Wikidata for each artist in the input spreadsheet and export artist information to the output spreadsheet.
 
 ## Output Spreadsheet Fields
++ Input Name - the name of the artist searched for, from the initial input file
++ Name
++ Given Name
++ Occupation
++ Genre
++ Gender
++ Date of Birth
++ Year Active Start
++ Year Active End
++ Native Language
++ Location
++ Album
++ Song
++ Influenced By
++ Spotify ID
++ Origin
++ Collaborations
++ AllMusic ID
++ Discogs ID
++ Place of Birth
++ Residence
++ Education
++ Field of Work
++ Employer
++ Website
++ Twitter ID
++ Instagram Username
++ Facebook ID
++ YouTube ID
++ Members
++ Label
++ Instrument Played
++ Associated Acts
++ Awards Recieved
++ Notable Work
++ Musical Group Membership
++ Role in Musical Group
++ Income
++ Net Worth
++ Income Range
++ Salary
++ Tax Bracket
++ Net Income
++ Earnings per Share
++ Total Assets
++ Revenue
++ Total Equity
+
 
 ## Features
 + Imports from CSV
