@@ -5,12 +5,12 @@ Finds information on musicians and recording artists using pywikibot.
 
 FindArtists is a Python application that uses the Pywikibot library to find information on musicians and recording artists from Wikipedia.
 
-##Prerequisites
+## Prerequisites
 + Python 3.6 or higher
 + Pywikibot library
 + Padas Library
 
-##Installation
+## Installation
 + Clone the repository or download the source code.
 + Install Pywikibot library using pip: pip install pywikibot pandas
 
