@@ -14,30 +14,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from artist_finder import artist_finder as af
-from export_file import export_file
-from import_file import import_file
+import os
+import file_management
+import main
 
-in_filepath = input("Input Filepath:")
-print(in_filepath)
 
-in_filename = input("Input Filename (required):")
-print(in_filename)
+def get_user_input(prompt, default):
+    user_input = input(f"{prompt} [{default}]: ")
+    return user_input.strip() or default
 
-out_filename = input("Output Filename:")
-print(out_filename)
+input_filename = get_user_input("Enter input filename", "input.txt")
+input_filepath = get_user_input("Enter input filepath", os.getcwd())
+output_filename = get_user_input("Enter output filename", "output.txt")
+output_filepath = get_user_input("Enter output filepath", os.getcwd())
 
-out_filepath = input("Output Filepath:")
-print(out_filepath)
+# Set user inputs as values in file_management module
+file_management.input_filename = input_filename
+file_management.input_filepath = input_filepath
+file_management.output_filename = output_filename
+file_management.output_filepath = output_filepath
 
-print('Importing File')
-importing = import_file(in_filename, in_filepath)
-imported = importing.read()
-
-print('Finding Artists')
-af = af(imported)
-artist_data = af.find_artists()
-
-print('Exporting File')
-export_file = export_file(artist_data)
-export_file()
+# Call main module
+main.run()
