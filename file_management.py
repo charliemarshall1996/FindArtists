@@ -44,6 +44,7 @@ class ReadFile:
 class WriteFile:
     def write(self, data):
         self.create_df(data)
+        self.format_df()
         self.export()
 
     def create_df(self, data):
@@ -54,5 +55,10 @@ class WriteFile:
         #Get datetime as string
         date_string = str(common.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
         full_filename = f'{output_filename}_{date_string}.csv'
-        self.df.to_csv(f'{output_filepath}\{full_filename}', encoding='UTF-8')
+        self.formatted_df.to_csv(f'{output_filepath}\{full_filename}', encoding='UTF-8')
         print(full_filename + " exported successfully.")
+
+    def format_df(self):
+        def join_list(lst):
+            return ','.join(map(str, lst))
+        self.formatted_df = self.df.applymap(lambda x: join_list(x) if isinstance(x, list) else x)

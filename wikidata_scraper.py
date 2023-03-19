@@ -5,7 +5,8 @@ from tqdm import tqdm
 class WikidataScraper:
     
     def __init__(self):
-        self.properties = {"name": "P2561", 
+        self.properties = {
+                "name": "P2561", 
                 "given_name": "P735", 
                 "occupation": "P106", 
                 "genre": "P136", 
@@ -13,7 +14,7 @@ class WikidataScraper:
                 "date_of_birth": "P569",
                 "year_active_start": "P2031", 
                 "year_active_end": "P2032",
-                "native_language": "P103", 
+                "native_language": "P103",
                 "location": "P276", 
                 "album": "P366",
                 "song": "P439", 
@@ -52,33 +53,58 @@ class WikidataScraper:
                 "total_equity": "P2140"}
 
     def scrape(self):
-
+        values = 0
+        
+        #Iterate through artist pages
         for page in tqdm(data_handler.artist_pages, desc="Searching Artist Data: "):
+            
             id = page['id']
+            artist = page['name']
             
             site = common.pywikibot.Site("wikidata", "wikidata")
             repo = site.data_repository()
             item = common.pywikibot.ItemPage(repo, id)
             item_dict = item.get()
+            clm_dict = item_dict['claims']
+            
             record = {}
-        
-            values = 0
+            record['Searched Artist'] = artist
+            #Iterate through each of the defined properties
             for key, property_id in self.properties.items():
+    
                 try:
-                    if property_id in item_dict["claims"]:
-                        claim = item_dict["claims"][property_id][0]
+                    item_dict = item.get()
+                    clm_dict = item_dict["claims"]  
+                    #print(f"Processing property {key}")
+                    clm_list = clm_dict[str(property_id)]
+                    values += 1
+                    
+                    for clm in clm_list:
+                        clm_trgt = clm.getTarget()
                         
-                        if claim.target:
-                            values += 1
-                            if claim.target.__class__.__name__ == "Time":
-                                # Split datetime values on 'T' and extract only the date
-                                date_string = claim.target.toTimestr().split('T')[0]
-                                record[key] = date_string
-                            else:
-                                record[key] = claim.target
-                            
-                    tqdm.write(f'Total values found {values}')
+                        #If it's a WbTime data type
+                        if isinstance(clm_trgt, common.pywikibot.WbTime):
+                            clm_time = clm_trgt.toTimestamp()
+                            record[key] = str(clm_time).split('T')[0]
+                        
+                        elif isinstance(clm_trgt, common.pywikibot.WbQuantity):
+                            record[key] = clm_trgt.amount
+                        
+                        elif isinstance(clm_trgt, str):
+                            record[key] = clm_trgt
+                        
+                        elif isinstance(clm_trgt, common.pywikibot.WbMonolingualText):
+                            record[key] = clm_trgt.text
+
+                        else:
+                            clm_dict = clm_trgt.toJSON()
+                            record[key] = clm_dict['labels']['en']['value']
+                    tqdm.write(f'Property {key}, for {artist} found.')
+                    
+                
+                #If property can't be found, set value in record dict to None
                 except (KeyError, TypeError):
+                    tqdm.write(f'Property not found {key}')
                     record[key] = None
-       
+            tqdm.write(f'Total values found {values}.')
             data_handler.data.append(record)
