@@ -1,6 +1,7 @@
 import common
 import data_handler
 from tqdm import tqdm
+from normalize import normalize as normal
 
 class WikidataScraper:
     
@@ -85,26 +86,28 @@ class WikidataScraper:
                         #If it's a WbTime data type
                         if isinstance(clm_trgt, common.pywikibot.WbTime):
                             clm_time = clm_trgt.toTimestamp()
-                            record[key] = str(clm_time).split('T')[0]
+                            record[key] = normal(str(clm_time).split('T')[0])
                         
                         elif isinstance(clm_trgt, common.pywikibot.WbQuantity):
-                            record[key] = clm_trgt.amount
+                            record[key] = normal(clm_trgt.amount)
                         
                         elif isinstance(clm_trgt, str):
-                            record[key] = clm_trgt
+                            record[key] = normal(clm_trgt)
                         
                         elif isinstance(clm_trgt, common.pywikibot.WbMonolingualText):
-                            record[key] = clm_trgt.text
+                            record[key] = normal(clm_trgt.text)
 
                         else:
                             clm_dict = clm_trgt.toJSON()
-                            record[key] = clm_dict['labels']['en']['value']
+                            record[key] = normal(clm_dict['labels']['en']['value'])
                     tqdm.write(f'Property {key}, for {artist} found.')
                     
                 
                 #If property can't be found, set value in record dict to None
-                except (KeyError, TypeError):
+                except (KeyError, TypeError, AttributeError):
                     tqdm.write(f'Property not found {key}')
                     record[key] = None
+                    continue
+            
             tqdm.write(f'Total values found {values}.')
             data_handler.data.append(record)

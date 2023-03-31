@@ -16,6 +16,8 @@
 import common
 import data_handler
 from tqdm import tqdm
+from normalize import normalize as normal
+from pywikibot import exceptions
 
 
 
@@ -34,15 +36,19 @@ class WikipediaScraper:
                 page = common.pywikibot.Page(site, f"{artist}")
                 item = common.pywikibot.ItemPage.fromPage(page)
                 clean_id = self.id_cleaner(item)
-                
+                artist = normal(artist)
                 artist_page = {'name': artist, 'id': clean_id}
                 data_handler.artist_pages.append(artist_page.copy())
                 counter += 1
                 tqdm.write(f'Artists found: {counter}/{total_searches}')
                 #print(f'Found {counter} of {total_searches} artists')
+            
             except common.pywikibot.exceptions.NoPageError:
-                #print("Artist Not Found: " + artist)
-                pass
+                continue
+            
+            except (common.pywikibot.exceptions.InvalidTitleError) as err:
+                print(err)
+                continue
 
     def id_cleaner(self, item):
         item_str = str(item)
