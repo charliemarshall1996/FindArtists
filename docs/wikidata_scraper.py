@@ -83,7 +83,8 @@ class WikidataScraper:
                     for clm in clm_list:
                         clm_trgt = clm.getTarget()
                         
-                        #If it's a WbTime data type
+                        #Set the appropriate data type and format for the received value
+                        
                         if isinstance(clm_trgt, common.pywikibot.WbTime):
                             clm_time = clm_trgt.toTimestamp()
                             record[key] = normal(str(clm_time).split('T')[0])
