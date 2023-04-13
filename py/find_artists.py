@@ -23,9 +23,9 @@ def get_user_input(prompt, default):
     user_input = input(f"{prompt} [{default}]: ")
     return user_input.strip() or default
 
-input_filename = get_user_input("Enter input filename", "input.txt")
+input_filename = get_user_input("Enter input filename", ".csv or .xlsx file")
 input_filepath = get_user_input("Enter input filepath", os.getcwd())
-output_filename = get_user_input("Enter output filename", "output.txt")
+output_filename = get_user_input("Enter output filename", ".csv or .xlsx file")
 output_filepath = get_user_input("Enter output filepath", os.getcwd())
 
 # Set user inputs as values in file_management module
