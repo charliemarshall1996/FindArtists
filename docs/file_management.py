@@ -18,23 +18,27 @@ import common
 
 dire = str(common.os.getcwd())
 
-input_filename = 'names_of_artists.csv'
+input_filename = f'\\docs\\names_of_artists.csv'
 input_filepath = dire
 output_filename = 'FindArtists'
 output_filepath = dire
 
 class ReadFile:
-    def read(self):
+    def read(self, sample=False, sample_size=None):
 
         if '.xlsx' in input_filename: #If '.xlsx' is in the filename
-            extracted_file = common.pandas.read_excel(f'{input_filepath}/{input_filename}', index_col=False) #Extract as excel file
+            extracted_file = common.pandas.read_excel(f'{input_filepath}\\{input_filename}', index_col=False) #Extract as excel file
             print("file extracted")
-            artist_names = extracted_file['NAME'].tolist()
         
         elif '.csv' in input_filename: #If '.csv' is in the filename
-            extracted_file = common.pandas.read_csv(f'{input_filepath}/{input_filename}', index_col=False, engine='python') #Extract as csv
+            extracted_file = common.pandas.read_csv(f'{input_filepath}\\{input_filename}', index_col=False, engine='python') #Extract as csv
             print("file extracted")
-            artist_names = extracted_file['NAME'].tolist()
+        
+        #If user wants to choose a random sample
+        if sample:
+            extracted_file = extracted_file.sample(n=sample_size)
+
+        artist_names = extracted_file['NAME'].tolist()
         
         return artist_names
         

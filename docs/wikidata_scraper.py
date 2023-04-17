@@ -1,7 +1,11 @@
 import common
 import data_handler
 from tqdm import tqdm
-from normalize import normalize as normal
+from iptk_data import Normalize
+from iptk_data import Present
+
+normalize = Normalize()
+present = Present()
 
 class WikidataScraper:
     
@@ -85,27 +89,38 @@ class WikidataScraper:
                         
                         #Set the appropriate data type and format for the received value
                         
+                        #If WbTime
                         if isinstance(clm_trgt, common.pywikibot.WbTime):
                             clm_time = clm_trgt.toTimestamp()
-                            record[key] = normal(str(clm_time).split('T')[0])
+                            data = str(clm_time).split('T')[0]
+                            record[key] = normalize.normalize(data, data_type='date')
+                            continue
                         
+                        #If WbQuantity
                         elif isinstance(clm_trgt, common.pywikibot.WbQuantity):
-                            record[key] = normal(clm_trgt.amount)
+                            data = normalize.normalize(clm_trgt.amount)
+                            record[key] = present.title(data)
                         
                         elif isinstance(clm_trgt, str):
-                            record[key] = normal(clm_trgt)
+                            data = normalize.normalize(clm_trgt)
+                            record[key] = present.title(data)
                         
                         elif isinstance(clm_trgt, common.pywikibot.WbMonolingualText):
-                            record[key] = normal(clm_trgt.text)
+                            data = normalize.normalize(clm_trgt.text)
+                            record[key] = present.title(data)
 
                         else:
                             clm_dict = clm_trgt.toJSON()
-                            record[key] = normal(clm_dict['labels']['en']['value'])
+                            data = normalize.normalize(clm_dict['labels']['en']['value'])
+                            record[key] = present.title(data)
+
+                        
+                    
                     tqdm.write(f'Property {key}, for {artist} found.')
                     
                 
-                #If property can't be found, set value in record dict to None
-                except (KeyError, TypeError, AttributeError):
+                #If property can't be found, or is otherwise erronious, set value in record dict to None
+                except (KeyError, AttributeError):
                     tqdm.write(f'Property not found {key}')
                     record[key] = None
                     continue
