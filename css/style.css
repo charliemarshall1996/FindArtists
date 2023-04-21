@@ -1,0 +1,30 @@
+
+main .container-fluid {
+    max-width: 50vw;
+    padding-top: 2%;
+}
+
+/* Header */
+
+/* Main */
+.hero {
+    background-image: url('../assets/artist_on_stage.jpg');
+    background-size: cover;
+    background-position: 0%;
+}
+
+.hero-text {
+    color: white;
+}
+
+/* Forms */
+form div{
+    padding-top: 5%;
+    padding-bottom: 2%;
+}
+
+/* Footer */
+footer {
+    padding-top: 200px;
+    align-self: center;
+}
