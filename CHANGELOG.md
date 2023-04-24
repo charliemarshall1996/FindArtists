@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.2.1 (UNRELEASED) 2023-03-31
+## [UNRELEASED]
+
+## 0.2.1 - 2023-03-31
 ### Changed
 + 'pass' to 'continue' in wikidata_scraper.py and wikipedia_scraper.py
 + Moved py files to 'py' folder
@@ -14,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 + InvalidTitleError exception caught and managed in wikipedia_scraper.py
 + AttributeError exception caught and managed in wikidata_scraper.py
 
-## 0.2.0 (UNRELEASED) 2023-02-24
+## 0.2.0 - 2023-02-24
 ### Changed
 + Split the app into several modules for better organization and maintainability.
 + Reorganized output file fields to be more intuitive.
@@ -26,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 + Fixed several minor bugs and issues.
 
-## 0.1.0 (UNRELEASED) 2023-02-13
+## 0.1.0 - 2023-02-13
 ### Added
 + Input functions to allow for terminal use.
 + print() for every user input.

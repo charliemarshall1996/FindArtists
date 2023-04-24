@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+
     <!-- METADATA -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FindArtists</title>
+
+    <!-- RESET -->
+    <link href="css/reset.css" rel="stylesheet">
 
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -14,124 +17,128 @@
 
     <!-- Style -->
     <link href="css/style.css" rel="stylesheet">
-    
-
 </head>
+
 <body>
-    <header>
 
 
-        <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">FindArtists</a>
 
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                  <li class="nav-item">
-                    <a class="nav-link" href="readme.html">ReadMe</a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a class="nav-link" href="license.html">Licensing</a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a class="nav-link" href="changelog.html">Change Log</a>
-                  </li>
-
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle disabled" href="documentation.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Documentation
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
-
-                  <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                  </li>
-
+  <!-- HEADER -->
+  <header>
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">FindArtists</a>
+    
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+              <li class="nav-item">
+                <a class="nav-link" href="readme.html">ReadMe</a>
+              </li>
+    
+              <li class="nav-item">
+                <a class="nav-link" href="license.html">Licensing</a>
+              </li>
+    
+              <li class="nav-item">
+                <a class="nav-link" href="changelog.html">Change Log</a>
+              </li>
+    
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle disabled" href="documentation.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Documentation
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
-
-                <!-- SEARCH BAR
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                END SEARCH BAR -->
-
-
-              </div>
-            </div>
-          </nav>
-
-          <!-- END OF NAVBAR -->
-    </header>
-    <!-- END OF HEADER -->
-
-    <!-- MAIN -->
-    <main>
-
-      <div class="px-4 py-5 my-5 text-center hero">
-        <h1 class="display-5 fw-bold hero-text">FindArtists</h1>
-        
-        <div class="col-lg-6 mx-auto">
-          <p class="lead mb-4 hero-text">FindArtists is a python app to find and gather information on well-known musicians and recording artists.</p>
-
+              </li>
+    
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+    
+            </ul>
+    
+            <!-- SEARCH BAR
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            END SEARCH BAR -->
+    
+          </div>
         </div>
+      </nav>
+      <!-- END OF NAVBAR -->
 
+      <!-- HERO -->
+      <div class="px-4 py-5 my-5 text-center hero">
+          <h1 class="display-5 fw-bold hero-text">FindArtists</h1>
+          <div class="col-lg-6 mx-auto">
+              <p class="lead mb-4 hero-text">Mass-retrieve information on popular recording artists quickly.</p>
+          </div>
       </div>
-      <div class="container-fluid">
+      <!-- HERO END -->
+  </header>
+  <!-- HEADER END -->
 
-      <section>
-        
-        <!-- THE PROBLEM -->
-        <section>
+  <!-- MAIN -->
+  <main>
+
+    <div class="container">
+
+      <!-- PROBLEM -->
+      <div class="row gy-3">
+        <div class="col-6">
           <h2>The Problem</h2>
           <p>The idea to find information on musicians came when Charlie Marshall needed to conduct market research into the electronic industry. 
             In particular, information on popular artists within the industry. 
             Most data-vendors were unreliable, did not hold required information that was being looked for or were far too expensive.
             Searching for this data manually would've been a slow, tedious process, given the necessary number of artists to find information for.
           </p>
-        </section>
-        
-        <!-- PURPOSE -->
-        <section>
-          
-          <h2>Purpose</h2>
+        </div>
+        <div class="col-6">
+          <img class="img-fluid" src="assets/chart.jpg">
+        </div>
+      </div>
+      <!-- PROBLEM END -->
 
+      <!-- PURPOSE -->
+      <div class="row gy-5">
+        <div class="col-6">
+          <img class="img-fluid" src="assets/artists-on-stage-2.jpg">
+        </div>
+        <div class="col-6">
+          <h2>Purpose</h2>
           <p>
             FindArtists is an application which is being developed to solve or otherwise mitigage the issues defined in the The Problem section above.
-
             As such, it can be surmised that FindArtists must fulfill several goals in order to be a for its intended purpose:
           </p>
-
           <ul>
             <li>FindArtists must provide be cheap and/or free for the end-user. This will solve the issue of high cost typically associated with finding such information from data vendors.</li>
             <li>FindArtists must run quickly. This will solve the issue the user has in self-attaining the data.</li>
-            <li>FindArtists must not require too much human intervention. This will minimise costs and manpower for the end user, which is typically associated with manual searching for this data.</li>
+            <li>FindArtists must not require too much human intervention. This will minimise costs and manpower for the end-user that is typically associated with manual searching for data.</li>
             <li>FindArtists must output information which is conducive to market research.</li>
             <li>FindArtists must be able output a large quantity of relevant information.</li>
             <li>FindArtists must output accurate and valid information. If it does not fulfill this, it cannot be used by the end-user correctly and therefore will not achieve its intended purpose.</li>
           </ul>
+        </div>
+      </div>
+      <!-- PURPOSE END -->
 
-        </section>
-
-        <!-- FEATURES/SPECS -->
-        <section>
-          <h2>Features/Specifications</h2>
-          <p>In order to fulfil the intended purpose and resolve the problems defined, FindArtists must meet a series of specifications:
-          </p>
+      <!-- SPECIFICATIONS -->
+      <div class="row gy-5">
+        <div class="col-6">
+          <h2>Specifications</h2>
+          <p>In order to fulfil the intended purpose and resolve the problems defined, FindArtists must meet a series of specifications:</p>
           <ul>
             <li>Take user inputs within a .csv, .xlsx OR a user-input textbox.</li>
             <li>Output data in a user-defined .csv OR .xlsx format.</li>
@@ -144,102 +151,95 @@
             <li>Allow the user to output only their desired fields.</li>
             <li>Inform the user of the progress of the apps execution.</li>
           </ul>
-        </section>
+        </div>
+        <div class="col-6">
+          <img class="img-fluid" src="assets/mixing-desk.jpg">
+        </div>
+      </div>
+      <!-- SPECIFICATIONS END -->
 
-        <!--INTENDED AUDIENCE -->
-        <section>
+      <!-- INTENDED AUDIENCE -->
+      <div class="row gy-5">
+        <div class="col-6">
+          <img class="img-fluid" src="assets/crowd.jpg">
+        </div>
+        <div class="col-6">
           <h2>Intended Audience</h2>
-
           <ul>
             <li>This project is for Entrepreneurs and Market Researchers who are looking for a way to easily find and download recording artist information.</li>
             <li>No prior experience with programming is required.</li>
             <li>This project can be used to find information about artists, such as their name, genre, and net worth.</li>
             <li>FindArtists can find, gather and return information on a large quantity or artists in a far shorter time frame, with less mistakes, than it would take a human.</li>
-            <!--<li>This project is already being used by a number of software developers.</li>-->
           </ul>
+        </div>
+      </div>
+      <!-- INTENDED AUDIENCE END -->
+    </div>
 
-        </section>
-      </section>
-      <!-- END OF DESCRIPTION-->
-
-      <br>
-      <!-- SHOWCASE 
+    <!-- SHOWCASE 
+    <section>
+      <h2>Showcase</h2>
+      <p>Explain showcase section and what specifically is being shown.</p>
+      
+      SCREENSHOT 
       <section>
-        <h2>Showcase</h2>
-        <p>Explain showcase section and what specifically is being shown.</p>
-        
-        SCREENSHOT 
-        <section>
-          <h3>Images</h3>
-          <p>Images of app in action, with brief explanation of each one and the feature.</p>
-        </section>
-
-        IN ACTION 
-        <section>
-          <h3>Videos</h3>
-          <p>Video of the app running, perhaps with captions.</p>
-        </section>
+        <h3>Images</h3>
+        <p>Images of app in action, with brief explanation of each one and the feature.</p>
       </section>
-      END OF SHOWCASE 
 
-      <br>
-
-      DEMO 
+      IN ACTION 
       <section>
-        <h2>Demo</h2>
-        <p>Description on demo</p>
+        <h3>Videos</h3>
+        <p>Video of the app running, perhaps with captions.</p>
       </section>
-       END OF DEMO
-
-      <br>
-
-      *DOWNLOAD*
-      <section>
-        <h2>Download</h2>
-        <p>Some text</p>
-        <button>DOWNLOAD</button>
-      </section>
-      *END OF DOWNLOAD*
-      -->
-    </main>
+    </section>
+    END OF SHOWCASE 
 
     <br>
-    
-  <footer>
-    <div class="container">
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-      <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-        <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-      </a>
-      <span class="mb-3 mb-md-0 text-muted">© 2023 Charlie Marshall</span>
-    </div>
-    <div class="">
-      <ul class="nav col-md-5 justify-content-center list-unstyled d-flex">
 
-        <li class="nav-item">
-          <a>Terms of Service</a>
-        </li>
+    DEMO 
+    <section>
+      <h2>Demo</h2>
+      <p>Description on demo</p>
+    </section>
+      END OF DEMO
 
-        <li class="nav-item">
-          <a>FAQs</a>
-        </li>
+    <br>
 
-        <li class="nav-item">
-          <a>Licensing</a>
-        </li>
+    *DOWNLOAD*
+    <section>
+      <h2>Download</h2>
+      <p>Some text</p>
+      <button>DOWNLOAD</button>
+    </section>
+    *END OF DOWNLOAD*
+    -->
+    </section>
+  </main>
+  <!-- MAIN END -->
 
+  <!-- FOOTER -->
+  
+  <div class="container">
+    <footer class="py-3 my-4">
+      
+      <!-- FOOTER NAV -->
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="index.html" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"></a></li>
+        <li class="nav-item"><a href="license.html" class="nav-link px-2 text-muted">Licensing</a></li>
+        <li class="nav-item"><a href="documentation.html#faq" class="nav-link px-2 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="terms.html" class="nav-link px-2 text-muted">Terms of Service</a></li>
       </ul>
-    </div>
+      <!-- FOOTER NAV END -->
 
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-    </ul>
+      <!-- COPYRIGHT -->
+      <p class="text-center text-muted">© 2023 Charlie Marshall</p>
+      <!-- END OF COPYRIGHT -->
 
-  </footer>
-</div>
+    </footer>
+  </div>
+  <!-- FOOTER END -->
 
 </body>
 </html>
