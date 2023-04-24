@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "fs": "^0.0.1-security",
+    "marked": "^4.3.0",
+    "parse-md": "^3.0.3"
+  },
+  "type": "module"
+}
