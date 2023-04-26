@@ -4,27 +4,31 @@ main .container-fluid {
     padding-top: 2%;
 }
 
-/* Header */
-
-/* Main */
-.hero {
-    background-image: url('../assets/artist_on_stage.jpg');
-    background-size: cover;
-    background-position: 0%;
-}
-
+/* Font */
 .hero-text {
     color: white;
 }
 
+/* MARKDOWN */
+
+zero-md {
+    max-height: 75vh;
+    overflow-y: scroll;
+    border: solid;
+    padding: 2vh;
+}
+
+/* Header */
+
+/* Main */
+
 /* Forms */
+
 form div{
     padding-top: 5%;
-    padding-bottom: 2%;
 }
 
 /* Footer */
 footer {
     padding-top: 200px;
-    align-self: center;
 }

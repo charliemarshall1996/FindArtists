@@ -1,4 +1,5 @@
 # FindArtists
+
 Finds information on musicians and recording artists using pywikibot.
 
 ## Description
@@ -6,16 +7,19 @@ Finds information on musicians and recording artists using pywikibot.
 FindArtists is a Python application that uses the Pywikibot library to find information on musicians and recording artists from Wikipedia.
 
 ## Prerequisites
-+ Python 3.6 or higher
-+ Pywikibot library
-+ Padas Library
+
+-   Python 3.6 or higher
+-   Pywikibot library
+-   Padas Library
 
 ## Installation
-+ Clone the repository or download the source code.
-+ Install Pywikibot library using pip: `pip install pywikibot` 
-+ Install Pandas library using pip: `pip install pandas`
+
+-   Clone the repository or download the source code.
+-   Install Pywikibot library using pip: `pip install pywikibot`
+-   Install Pandas library using pip: `pip install pandas`
 
 ## How to Use
+
 1. Prepare an input spreadsheet containing the artist names. The artist names should be in the first column of the spreadsheet.
 2. Open a terminal window and navigate to the directory containing the FindArtists.py file.
 3. Run the command python FindArtists.py.
@@ -24,60 +28,62 @@ FindArtists is a Python application that uses the Pywikibot library to find info
 6. The application will search Wikipedia and Wikidata for each artist in the input spreadsheet and export artist information to the output spreadsheet.
 
 ## Output Spreadsheet Fields - This is how they are currently ordered, but needs re-ordering.
-+ Input Name - the name of the artist searched for, from the initial input file
-+ Name
-+ Given Name
-+ Occupation
-+ Genre
-+ Gender
-+ Date of Birth
-+ Year Active Start
-+ Year Active End
-+ Native Language
-+ Location
-+ Album
-+ Song
-+ Influenced By
-+ Spotify ID
-+ Origin
-+ Collaborations
-+ AllMusic ID
-+ Discogs ID
-+ Place of Birth
-+ Residence
-+ Education
-+ Field of Work
-+ Employer
-+ Website
-+ Twitter ID
-+ Instagram Username
-+ Facebook ID
-+ YouTube ID
-+ Members
-+ Label
-+ Instrument Played
-+ Associated Acts
-+ Awards Recieved
-+ Notable Work
-+ Musical Group Membership
-+ Role in Musical Group
-+ Income
-+ Net Worth
-+ Income Range
-+ Salary
-+ Tax Bracket
-+ Net Income
-+ Earnings per Share
-+ Total Assets
-+ Revenue
-+ Total Equity
 
+-   Input Name - the name of the artist searched for, from the initial input file
+-   Name
+-   Given Name
+-   Occupation
+-   Genre
+-   Gender
+-   Date of Birth
+-   Year Active Start
+-   Year Active End
+-   Native Language
+-   Location
+-   Album
+-   Song
+-   Influenced By
+-   Spotify ID
+-   Origin
+-   Collaborations
+-   AllMusic ID
+-   Discogs ID
+-   Place of Birth
+-   Residence
+-   Education
+-   Field of Work
+-   Employer
+-   Website
+-   Twitter ID
+-   Instagram Username
+-   Facebook ID
+-   YouTube ID
+-   Members
+-   Label
+-   Instrument Played
+-   Associated Acts
+-   Awards Recieved
+-   Notable Work
+-   Musical Group Membership
+-   Role in Musical Group
+-   Income
+-   Net Worth
+-   Income Range
+-   Salary
+-   Tax Bracket
+-   Net Income
+-   Earnings per Share
+-   Total Assets
+-   Revenue
+-   Total Equity
 
 ## Features
-+ Imports from CSV
-+ Exports to CSV
-+ Custom export file location
-+ Custom export filename
+
+-   Imports from CSV
+-   Exports to CSV
+-   Custom export file location
+-   Custom export filename
 
 ## License
-This project is licensed under the GNU GPLv3 - see the LICENSE.md file for details.
+
+This project is licensed under MIT. Please see [LICENSE.md](LICENSE.md) for more details.

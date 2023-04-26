@@ -1,93 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+	<head>
+		<!-- METADATA -->
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>[PROJECT NAME]</title>
 
-    <!-- METADATA -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[PROJECT NAME] | License</title>
+		<!-- BOOTSTRAP -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+			crossorigin="anonymous"
+		></script>
 
-    <!-- BOOTSTRAP -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+		<!-- Style -->
+		<link href="css/reset.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
 
-</head>
-<body>
-    <header>
-        <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
+		<!-- ZERO-MD - MARKDOWN PARSER -->
+		<script
+			type="module"
+			src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"
+		></script>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header role="banner">
+			<div class="container-fluid">
+				<!-- NAVBAR -->
+				<nav class="navbar navbar-expand-lg bg-body-tertiary">
+					<a
+						class="navbar-brand"
+						href="index.html"
+						aria-label="Project Name"
+						>[PROJECT NAME]</a
+					>
 
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<div
+						class="collapse navbar-collapse"
+						id="navbarSupportedContent"
+					>
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="nav-item">
+								<a
+									class="nav-link"
+									href="readme.html"
+									aria-label="ReadMe"
+									>ReadMe</a
+								>
+							</li>
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">ReadMe</a>
-                  </li>
+							<li class="nav-item">
+								<a
+									class="nav-link active"
+									href="license.html"
+									aria-label="Licensing"
+									>Licensing</a
+								>
+							</li>
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Licensing</a>
-                  </li>
+							<li class="nav-item">
+								<a
+									class="nav-link"
+									href="changelog.html"
+									aria-label="Change Log"
+									>ChangeLog</a
+								>
+							</li>
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Change Log</a>
-                  </li>
+							<li class="nav-item dropdown">
+								<a
+									class="nav-link dropdown-toggle"
+									href="documentation.html"
+									role="button"
+									data-bs-toggle="dropdown"
+									aria-expanded="false"
+								>
+									Documentation
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a
+											class="dropdown-item"
+											href="documentation.html#project-overview"
+											aria-label="Project Overview"
+											>Project Overview</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item"
+											href="documentation.html#install-instructions"
+											aria-label="Install Instructions"
+											>Install Instructions</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item"
+											href="documentation.html#user-guide"
+											aria-label="User Guide"
+											>User Guide</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item"
+											href="documentation.html#troubleshooting"
+											aria-label="Troubleshooting"
+											>Troubleshooting</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item"
+											href="documentation.html#faq"
+											aria-label="FAQs"
+											>FAQs</a
+										>
+									</li>
+								</ul>
+							</li>
 
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Documentation
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
+							<li class="nav-item">
+								<a
+									class="nav-link"
+									href="contact.html"
+									aria-label="Contact"
+									>Contact</a
+								>
+							</li>
 
-                  <li class="nav-item">
-                    <a class="nav-link">Contact</a>
-                  </li>
+							<li class="nav-item">
+								<a
+									class="nav-link"
+									href="contributions.html"
+									aria-label="Contributions"
+									>Contributions</a
+								>
+							</li>
+						</ul>
 
-                </ul>
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="align-items-end">
+								<a
+									class="nav-link"
+									href="https://iammokzeeee.github.io/"
+									aria-label="Charlie Marshall's Portfolio"
+									>Charlie Marshall's Portfolio</a
+								>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<!-- END OF NAVBAR -->
+		</header>
+		<!-- HEADER END -->
 
-                <!-- SEARCH BAR
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                END SEARCH BAR -->
+		<!-- MAIN -->
+		<main>
+			<div class="container mt-5 w-50">
+				<h1>Licensing</h1>
+				<p class="my-3">
+					Please see below for up-to-date Licensing information for
+					FindArtists.
+				</p>
+				<zero-md src="LICENSE.md"></zero-md>
+			</div>
+		</main>
+		<!-- MAIN END -->
 
+		<!-- FOOTER -->
+		<footer class="py-3 my-4" role="contentinfo">
+			<div class="container">
+				<!-- FOOTER NAV -->
+				<ul
+					class="nav justify-content-center border-bottom pb-3 mb-3"
+					role="navigation"
+				>
+					<li class="nav-item">
+						<a
+							href="index.html"
+							class="nav-link px-2 text-muted"
+							aria-label="Home"
+							>Home</a
+						>
+					</li>
+					<li class="nav-item">
+						<a
+							href="license.html"
+							class="nav-link px-2 text-muted"
+							aria-label="Licensing"
+							>Licensing</a
+						>
+					</li>
+					<li class="nav-item">
+						<a
+							href="documentation.html#faq"
+							class="nav-link px-2 text-muted"
+							aria-label="FAQs"
+							>FAQs</a
+						>
+					</li>
+					<li class="nav-item">
+						<a
+							href="terms.html"
+							class="nav-link px-2 text-muted"
+							aria-label="Terms of Service"
+							>Terms of Service</a
+						>
+					</li>
+				</ul>
+				<!-- FOOTER NAV END -->
 
-              </div>
-            </div>
-        </nav>
-        
-    </header>
-
-    <main>
-        <h1>[PROJECT NAME] License</h1>
-
-    </main>
-
-    <footer>
-        <div class="row">
-            <div class="col-4">
-                <p>Social Links</p>
-            </div>
-            <div class="col-4">
-                <p>Terms of Service</p>
-            </div>
-            <div class="col-4">
-                <p>©Charlie Marshall 2023</p>
-            </div>
-        </div>
-    </footer>
-</body>
+				<!-- COPYRIGHT -->
+				<p class="text-center text-muted" aria-label="Copyright">
+					© 2023 Charlie Marshall
+				</p>
+				<!-- END OF COPYRIGHT -->
+			</div>
+		</footer>
+		<!-- FOOTER END -->
+	</body>
 </html>
