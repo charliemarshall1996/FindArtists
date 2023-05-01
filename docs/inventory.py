@@ -18,20 +18,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import os
-import file
-import main
+'''
 
-# GET INPUT FROM USER VIA TERMINAL
-def get_user_input(prompt, default):
-    user_input = input(f"{prompt} [{default}]: ")
-    return user_input.strip() or default
+inventory.py IS A MODULE MANAGE THE DATA RECEIVED FOR EACH ARTIST IN THE FINDARTISTS APP.
+
+'''
 
 
-input_filename = get_user_input("Enter input filename", ".csv or .xlsx file")
-input_filepath = get_user_input("Enter input filepath", os.getcwd())
-output_filename = get_user_input("Enter output filename", ".csv or .xlsx file")
-output_filepath = get_user_input("Enter output filepath", os.getcwd())
+#Wiki IDs
+artist_pages = []
 
-# Call main module
-main.run()
+#Output Data
+data = []

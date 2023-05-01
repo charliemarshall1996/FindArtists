@@ -1,9 +1,29 @@
+# Copyright (c) 2023, Charlie Marshall
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 from unidecode import unidecode
 import re
 from spellchecker import SpellChecker
 import datetime
 
-#Init spell checker
+# Init spell checker
 spell = SpellChecker()
 
 class Normalize:
@@ -31,7 +51,7 @@ class Normalize:
     def encode(self, data, encoding_type):
         
         if not encoding_type:
-            #Unidecode string
+            # Unidecode string
             encoded = unidecode(data)
             print('no encoding')
         
@@ -44,13 +64,13 @@ class Normalize:
 
     def string(self, string):
         
-        #Put all letters to lower case
+        # Put all letters to lower case
         string = string.lower()
         
-        #Remove Whitespace
+        # Remove Whitespace
         string = string.strip()
 
-        #Remove punctuation
+        # Remove punctuation
         string = re.sub(r"[^\w\s]", "", string)
         return string
     
@@ -74,21 +94,19 @@ class Normalize:
 
     
     def num(num):
-        #CUSTOM NUMBER NORMALISATION FUNCTION HERE
+        # CUSTOM NUMBER NORMALISATION FUNCTION HERE
         return num
 
     def flt(flt):
-        #CUSTOM FLOAT NUMBER NORMALISATION FUNCTION HERE
+        # CUSTOM FLOAT NUMBER NORMALISATION FUNCTION HERE
         return flt
-    
-#normalize = Normalize()
 
 class Present(Normalize):
     
     def __init__(self):
 
-        #List of articles, conjunctions and prepositions 
-        #not to be put into title case:
+        # List of articles, conjunctions and prepositions 
+        # not to be put into title case:
         self.title_exceptions = ['of', 
                     'and', 
                     'but', 
@@ -102,7 +120,7 @@ class Present(Normalize):
         
     def title(self, title):
 
-        #Normalize title
+        # Normalize title
         title = self.string(title)
 
         #Split words to list

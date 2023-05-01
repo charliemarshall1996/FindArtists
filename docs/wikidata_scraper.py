@@ -1,15 +1,49 @@
-import common
-import data_handler
+# Copyright (c) 2023, Charlie Marshall
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+'''
+wikidata_scraper.py - This module retrieves data from specified wikidata pages, 
+which correspond to specific wikipedia pages as found in wikipedia_scraper.py.
+
+'''
+
+
+# IMPORT LIBRARIES
+import inventory
 from tqdm import tqdm
 from iptk_data import Normalize
 from iptk_data import Present
+import pywikibot
 
+# INIT NORMALIZE AND PRESENT CLASSES FROM IPTK_DATA.PY
 normalize = Normalize()
 present = Present()
 
+# WIKIDATA SCRAPER CLASS
 class WikidataScraper:
     
     def __init__(self):
+
+
+        # INIT PROPERTIES DICT WITH CORRESPONDING DATA PROERPTY IDS
         self.properties = {
                 "name": "P2561", 
                 "given_name": "P735", 
@@ -57,73 +91,114 @@ class WikidataScraper:
                 "revenue": "P2131",
                 "total_equity": "P2140"}
 
-    def scrape(self):
+    def scrape(self, artist_pages):
+        # scrape() - CORE LOGIC OF WIKIDATA SCRAPER CLASS
+        # ARGS:
+        # - SELF
+        # - artist_pages: THE WIKIDATA ID OF THE MUSICAL ARTISTS TO FIND DATA ON
+        # 
+        # RETURNS: FOUND DATA POINTS, PLACED IN DICT FORMAT AND APPENDED TO LIST WITHIN
+        # INVENTORY.PY
+        
+        # INIT VALUES COUNTER TO ZERO
         values = 0
         
-        #Iterate through artist pages
-        for page in tqdm(data_handler.artist_pages, desc="Searching Artist Data: "):
+        # ITERATE THROUGH ARTIST PAGE IDS
+        for page in tqdm(artist_pages, desc="Searching Artist Data: "):
             
+            # DEFINE PAGE ID VARIABLE
             id = page['id']
+
+            # DEFINE ARTIST NAME VARIABLE
             artist = page['name']
             
-            site = common.pywikibot.Site("wikidata", "wikidata")
+            # INIT WIKIBOT TO SEARCH WIKIDATA SITE
+            site = pywikibot.Site("wikidata", "wikidata")
+
+            # INIT DATA REPO VARIABLE
             repo = site.data_repository()
-            item = common.pywikibot.ItemPage(repo, id)
+
+            # DEFINE THE WIKIDATA PAGE TO FIND
+            item = pywikibot.ItemPage(repo, id)
+
+            # RETRIEVE WIKIDATA PAGE
             item_dict = item.get()
+
+            # EXTRACT THE CLAIMS DICT FROM RETURNED DICT
             clm_dict = item_dict['claims']
             
+            # INIT ARTIST RECORD DICT
             record = {}
+
+            # SET 'SEARCHED ARTIST' RECORD FIELD TO THE ARTIST NAME
             record['Searched Artist'] = artist
-            #Iterate through each of the defined properties
+            
+            # RETRIEVE WIKIDATA PAGE
+            item_dict = item.get()
+
+            # RETRIEVE THE DEFINED PROPERTIES ON THE ARTIST PAGE
             for key, property_id in self.properties.items():
     
                 try:
-                    item_dict = item.get()
-                    clm_dict = item_dict["claims"]  
-                    #print(f"Processing property {key}")
+                    # RETRIEVE CLAIMS DICT FROM WIKIDATA PAGE DICT
+                    clm_dict = item_dict["claims"] 
+
+                    # FIND VALUES IN CLAIMS DICT WITH CORRESPONDING PROERTY ID
+                    # PUT FOUND VALUES TO LIST
                     clm_list = clm_dict[str(property_id)]
+
+                    # INTEGER THE VALUES COUNTER BY ONE
                     values += 1
                     
+                    # ITERATE THROUGH EACH OF THE FOUND CLAIMS
                     for clm in clm_list:
+
+                        # RETRIEVE THE TARGET FROM THE CLAIM
                         clm_trgt = clm.getTarget()
                         
-                        #Set the appropriate data type and format for the received value
+                        # FORMAT DATA BASED ON DATA TYPE
                         
-                        #If WbTime
-                        if isinstance(clm_trgt, common.pywikibot.WbTime):
+                        # If WbTime
+                        if isinstance(clm_trgt, pywikibot.WbTime):
                             clm_time = clm_trgt.toTimestamp()
                             data = str(clm_time).split('T')[0]
                             record[key] = normalize.normalize(data, data_type='date')
                             continue
                         
-                        #If WbQuantity
-                        elif isinstance(clm_trgt, common.pywikibot.WbQuantity):
+                        # If WbQuantity
+                        elif isinstance(clm_trgt, pywikibot.WbQuantity):
                             data = normalize.normalize(clm_trgt.amount)
                             record[key] = present.title(data)
                         
+                        # If String
                         elif isinstance(clm_trgt, str):
                             data = normalize.normalize(clm_trgt)
                             record[key] = present.title(data)
                         
-                        elif isinstance(clm_trgt, common.pywikibot.WbMonolingualText):
+                        # If MonoLingualText
+                        elif isinstance(clm_trgt, pywikibot.WbMonolingualText):
                             data = normalize.normalize(clm_trgt.text)
                             record[key] = present.title(data)
 
+                        # Otherwise assume JSON  
                         else:
                             clm_dict = clm_trgt.toJSON()
                             data = normalize.normalize(clm_dict['labels']['en']['value'])
-                            record[key] = present.title(data)
-
-                        
-                    
-                    tqdm.write(f'Property {key}, for {artist} found.')
-                    
+                            record[key] = present.title(data)      
                 
-                #If property can't be found, or is otherwise erronious, set value in record dict to None
+                # IF SEARCHING FOR PROPERTY RAISES KEYERROR
+                # OR ATTRIBUTEERROR, 
+                # SET THE DICTIONARY PROPERTY VALUE TO NONE
                 except (KeyError, AttributeError):
                     tqdm.write(f'Property not found {key}')
                     record[key] = None
                     continue
+
+                # PRINT IF PROERTY FOR ARTIST WAS FOUND TO TERMINAL
+                tqdm.write(f'Property {key}, for {artist} found.')
             
+            # PRINT THE TOTAL VALUES FOUND TO TERMINAL
             tqdm.write(f'Total values found {values}.')
-            data_handler.data.append(record)
+            
+            # APPEND THE FULL RECORD PROPERTY TO TERMINAL
+            inventory.data.append(record)
