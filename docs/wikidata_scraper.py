@@ -1,8 +1,37 @@
-import common
-import data_handler
+# Copyright (c) 2023, Charlie Marshall
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+'''
+wikidata_scraper.py - This module retrieves data from specified wikidata pages, 
+which correspond to specific wikipedia pages as found in wikipedia_scraper.py.
+
+'''
+
+
+
+import inventory
 from tqdm import tqdm
 from iptk_data import Normalize
 from iptk_data import Present
+import pywikibot
 
 normalize = Normalize()
 present = Present()
@@ -57,58 +86,63 @@ class WikidataScraper:
                 "revenue": "P2131",
                 "total_equity": "P2140"}
 
-    def scrape(self):
+    def scrape(self, artist_pages):
         values = 0
         
-        #Iterate through artist pages
-        for page in tqdm(data_handler.artist_pages, desc="Searching Artist Data: "):
+        # Iterate through artist pages
+        for page in tqdm(artist_pages, desc="Searching Artist Data: "):
             
             id = page['id']
             artist = page['name']
             
-            site = common.pywikibot.Site("wikidata", "wikidata")
+            site = pywikibot.Site("wikidata", "wikidata")
             repo = site.data_repository()
-            item = common.pywikibot.ItemPage(repo, id)
+            item = pywikibot.ItemPage(repo, id)
             item_dict = item.get()
             clm_dict = item_dict['claims']
             
             record = {}
             record['Searched Artist'] = artist
-            #Iterate through each of the defined properties
+            
+            # Iterate through and retrieve each of the defined properties
             for key, property_id in self.properties.items():
     
                 try:
+
                     item_dict = item.get()
                     clm_dict = item_dict["claims"]  
-                    #print(f"Processing property {key}")
                     clm_list = clm_dict[str(property_id)]
                     values += 1
                     
                     for clm in clm_list:
+
                         clm_trgt = clm.getTarget()
                         
                         #Set the appropriate data type and format for the received value
                         
-                        #If WbTime
-                        if isinstance(clm_trgt, common.pywikibot.WbTime):
+                        # If WbTime
+                        if isinstance(clm_trgt, pywikibot.WbTime):
                             clm_time = clm_trgt.toTimestamp()
                             data = str(clm_time).split('T')[0]
                             record[key] = normalize.normalize(data, data_type='date')
                             continue
                         
-                        #If WbQuantity
-                        elif isinstance(clm_trgt, common.pywikibot.WbQuantity):
+                        # If WbQuantity
+                        elif isinstance(clm_trgt, pywikibot.WbQuantity):
                             data = normalize.normalize(clm_trgt.amount)
                             record[key] = present.title(data)
                         
+                        # If String
                         elif isinstance(clm_trgt, str):
                             data = normalize.normalize(clm_trgt)
                             record[key] = present.title(data)
                         
-                        elif isinstance(clm_trgt, common.pywikibot.WbMonolingualText):
+                        # If MonoLingualText
+                        elif isinstance(clm_trgt, pywikibot.WbMonolingualText):
                             data = normalize.normalize(clm_trgt.text)
                             record[key] = present.title(data)
 
+                        # Otherwise    
                         else:
                             clm_dict = clm_trgt.toJSON()
                             data = normalize.normalize(clm_dict['labels']['en']['value'])
@@ -126,4 +160,4 @@ class WikidataScraper:
                     continue
             
             tqdm.write(f'Total values found {values}.')
-            data_handler.data.append(record)
+            inventory.data.append(record)
