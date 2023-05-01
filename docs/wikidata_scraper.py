@@ -26,19 +26,24 @@ which correspond to specific wikipedia pages as found in wikipedia_scraper.py.
 '''
 
 
-
+# IMPORT LIBRARIES
 import inventory
 from tqdm import tqdm
 from iptk_data import Normalize
 from iptk_data import Present
 import pywikibot
 
+# INIT NORMALIZE AND PRESENT CLASSES FROM IPTK_DATA.PY
 normalize = Normalize()
 present = Present()
 
+# WIKIDATA SCRAPER CLASS
 class WikidataScraper:
     
     def __init__(self):
+
+
+        # INIT PROPERTIES DICT WITH CORRESPONDING DATA PROERPTY IDS
         self.properties = {
                 "name": "P2561", 
                 "given_name": "P735", 
@@ -87,38 +92,71 @@ class WikidataScraper:
                 "total_equity": "P2140"}
 
     def scrape(self, artist_pages):
+        # scrape() - CORE LOGIC OF WIKIDATA SCRAPER CLASS
+        # ARGS:
+        # - SELF
+        # - artist_pages: THE WIKIDATA ID OF THE MUSICAL ARTISTS TO FIND DATA ON
+        # 
+        # RETURNS: FOUND DATA POINTS, PLACED IN DICT FORMAT AND APPENDED TO LIST WITHIN
+        # INVENTORY.PY
+        
+        # INIT VALUES COUNTER TO ZERO
         values = 0
         
-        # Iterate through artist pages
+        # ITERATE THROUGH ARTIST PAGE IDS
         for page in tqdm(artist_pages, desc="Searching Artist Data: "):
             
+            # DEFINE PAGE ID VARIABLE
             id = page['id']
+
+            # DEFINE ARTIST NAME VARIABLE
             artist = page['name']
             
+            # INIT WIKIBOT TO SEARCH WIKIDATA SITE
             site = pywikibot.Site("wikidata", "wikidata")
+
+            # INIT DATA REPO VARIABLE
             repo = site.data_repository()
+
+            # DEFINE THE WIKIDATA PAGE TO FIND
             item = pywikibot.ItemPage(repo, id)
+
+            # RETRIEVE WIKIDATA PAGE
             item_dict = item.get()
+
+            # EXTRACT THE CLAIMS DICT FROM RETURNED DICT
             clm_dict = item_dict['claims']
             
+            # INIT ARTIST RECORD DICT
             record = {}
+
+            # SET 'SEARCHED ARTIST' RECORD FIELD TO THE ARTIST NAME
             record['Searched Artist'] = artist
             
-            # Iterate through and retrieve each of the defined properties
+            # RETRIEVE WIKIDATA PAGE
+            item_dict = item.get()
+
+            # RETRIEVE THE DEFINED PROPERTIES ON THE ARTIST PAGE
             for key, property_id in self.properties.items():
     
                 try:
+                    # RETRIEVE CLAIMS DICT FROM WIKIDATA PAGE DICT
+                    clm_dict = item_dict["claims"] 
 
-                    item_dict = item.get()
-                    clm_dict = item_dict["claims"]  
+                    # FIND VALUES IN CLAIMS DICT WITH CORRESPONDING PROERTY ID
+                    # PUT FOUND VALUES TO LIST
                     clm_list = clm_dict[str(property_id)]
+
+                    # INTEGER THE VALUES COUNTER BY ONE
                     values += 1
                     
+                    # ITERATE THROUGH EACH OF THE FOUND CLAIMS
                     for clm in clm_list:
 
+                        # RETRIEVE THE TARGET FROM THE CLAIM
                         clm_trgt = clm.getTarget()
                         
-                        #Set the appropriate data type and format for the received value
+                        # FORMAT DATA BASED ON DATA TYPE
                         
                         # If WbTime
                         if isinstance(clm_trgt, pywikibot.WbTime):
@@ -142,22 +180,25 @@ class WikidataScraper:
                             data = normalize.normalize(clm_trgt.text)
                             record[key] = present.title(data)
 
-                        # Otherwise    
+                        # Otherwise assume JSON  
                         else:
                             clm_dict = clm_trgt.toJSON()
                             data = normalize.normalize(clm_dict['labels']['en']['value'])
-                            record[key] = present.title(data)
-
-                        
-                    
-                    tqdm.write(f'Property {key}, for {artist} found.')
-                    
+                            record[key] = present.title(data)      
                 
-                #If property can't be found, or is otherwise erronious, set value in record dict to None
+                # IF SEARCHING FOR PROPERTY RAISES KEYERROR
+                # OR ATTRIBUTEERROR, 
+                # SET THE DICTIONARY PROPERTY VALUE TO NONE
                 except (KeyError, AttributeError):
                     tqdm.write(f'Property not found {key}')
                     record[key] = None
                     continue
+
+                # PRINT IF PROERTY FOR ARTIST WAS FOUND TO TERMINAL
+                tqdm.write(f'Property {key}, for {artist} found.')
             
+            # PRINT THE TOTAL VALUES FOUND TO TERMINAL
             tqdm.write(f'Total values found {values}.')
+            
+            # APPEND THE FULL RECORD PROPERTY TO TERMINAL
             inventory.data.append(record)

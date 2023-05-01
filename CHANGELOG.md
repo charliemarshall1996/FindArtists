@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+## 0.3.0 - 2023-05-01
+### Changed
++ Cleaned modules
++ Added desc. comments
++ Removed common.py and initialised libraries within modules they were needed
++ Changed file_management.py to file.py
++ Combined Read and WriteFile classes to be functions within a File class
+
 ## 0.2.1 - 2023-03-31
 ### Changed
 + 'pass' to 'continue' in wikidata_scraper.py and wikipedia_scraper.py

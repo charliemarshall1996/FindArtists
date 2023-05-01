@@ -40,11 +40,15 @@ import os
 
 dire = os.getcwd()
 
+# DEFINE INPUT FILE PARAMS
 input_filename = f'names_of_artists.xlsx'
 input_filepath = f'{dire}/input'
+
+# DEFINE OUTPUT FILE PARAMS
 output_filename = 'FindArtists'
 output_filepath = f'{dire}/output'
 
+# INIT WIKIPEDIA AND WIKIDATA SCRAPERS
 wikipedia = wikipedia_scraper.WikipediaScraper()
 wikidata = wikidata_scraper.WikidataScraper()
 

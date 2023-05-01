@@ -18,22 +18,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import inventory
+# IMPORT LIBRARIES
 from tqdm import tqdm
 from iptk_data import Normalize
 from iptk_data import Present
-from pywikibot import exceptions
 import pywikibot
 
+# INIT NORMALIZE AND PRESENT CLASSES FROM IPTK_DATA.PY
 normalize = Normalize()
 present = Present()
 
 
-
+# CREATE WIKIDATA CLASS
 class WikipediaScraper:
+    
     def __init__(self):
+        
+        # INIT SITE TO SEARCH
         self.site = pywikibot.Site("en", "wikipedia")
+        
+        # INIT ARTIST PAGE DICT
         self.artist_page = {'id': '', 'name': ''}
+        
+        # INIT LIST OF ARTIST PAGE DICTS
         self.artist_page_list = []
         
     def scrape(self, artists):
@@ -75,21 +82,35 @@ class WikipediaScraper:
                 counter += 1
                 tqdm.write(f'Artists found: {counter}/{total_searches}')
 
-            
+            # IF A NOPAGEERROR IS RETURNED FROM PYWIKIBOT, CONTINUE
             except pywikibot.exceptions.NoPageError:
                 continue
             
+            # IF AN INVALIDTITLEERROR IS RETRUNED FROM PYWIKIBOT, CONTINUE
             except (pywikibot.exceptions.InvalidTitleError) as err:
                 print(err)
                 continue
         
+        # RETURN THE LIST OF ARTIST PAGE DICTIONARIES
         return self.artist_page_list
 
     def id_cleaner(self, item):
+        
+        # TURN THE ITEM TO STRING FORMAT
         item_str = str(item)
+
+        # SPLIT THE STRING ITEMS ON SEMI-COLON INTO LIST
         item_items = item_str.split(":")
+        
+        # SELECT THE SECOND ITEM IN THE LIST
         id_half = item_items[1]
+        
+        # REMOVE THE SQUARE BRACKETS FROM LIST
         clean_id = id_half.replace("]", "")
+
+        # APPEND THE CLEANED ID TO THE 'WIKI_ID' KEY IN ARTIST PAGE LIST
         self.artist_page['wiki_id'] = id
+
+        # RETURN THE CLEANED ID
         return clean_id 
     
