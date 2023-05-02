@@ -25,26 +25,7 @@ which correspond to specific wikipedia pages as found in wikipedia_scraper.py.
 
 '''
 
-
-# IMPORT LIBRARIES
-import inventory
-from tqdm import tqdm
-from iptk_data import Normalize
-from iptk_data import Present
-import pywikibot
-
-# INIT NORMALIZE AND PRESENT CLASSES FROM IPTK_DATA.PY
-normalize = Normalize()
-present = Present()
-
-# WIKIDATA SCRAPER CLASS
-class WikidataScraper:
-    
-    def __init__(self):
-
-
-        # INIT PROPERTIES DICT WITH CORRESPONDING DATA PROERPTY IDS
-        self.properties = {
+all_valid_properties = {
                 "name": "P2561", 
                 "given_name": "P735", 
                 "occupation": "P106", 
@@ -91,7 +72,28 @@ class WikidataScraper:
                 "revenue": "P2131",
                 "total_equity": "P2140"}
 
-    def scrape(self, artist_pages):
+
+# IMPORT LIBRARIES
+import inventory
+from tqdm import tqdm
+from iptk_data import Normalize
+from iptk_data import Present
+import pywikibot
+
+# INIT NORMALIZE AND PRESENT CLASSES FROM IPTK_DATA.PY
+normalize = Normalize()
+present = Present()
+
+# WIKIDATA SCRAPER CLASS
+class WikidataScraper:
+    
+    '''
+    wikidata_scraper.py - This module retrieves data from specified wikidata pages, 
+    which correspond to specific wikipedia pages as found in wikipedia_scraper.py.
+
+    '''
+
+    def scrape(artist_pages, properties):
         # scrape() - CORE LOGIC OF WIKIDATA SCRAPER CLASS
         # ARGS:
         # - SELF
@@ -137,7 +139,7 @@ class WikidataScraper:
             item_dict = item.get()
 
             # RETRIEVE THE DEFINED PROPERTIES ON THE ARTIST PAGE
-            for key, property_id in self.properties.items():
+            for key, property_id in properties.items():
     
                 try:
                     # RETRIEVE CLAIMS DICT FROM WIKIDATA PAGE DICT
@@ -202,3 +204,91 @@ class WikidataScraper:
             
             # APPEND THE FULL RECORD PROPERTY TO TERMINAL
             inventory.data.append(record)
+
+# WIKIPEDIA SCRAPER CLASS
+class WikipediaScraper:
+    
+    def __init__(self):
+        pass
+
+    def scrape(self, artists):
+        
+        # INIT ARTIST PAGE DICT
+        artist_page = {'id': '', 'name': ''}
+
+        # INIT LIST OF ARTIST PAGE DICTS
+        artist_page_list = []
+
+        # COUNTER TO KEEP TRACK OF NUMBER OF ARTISTS FOUND
+        counter = 0
+
+        # FIND THE TOTAL NUMBER OF ARTISTS TO FIND WIKIPEDIA PAGES FOR
+        total_searches = len(artists)
+
+        # LOOP THROUGH EACH OF THE ARTISTS
+        for artist in tqdm(artists, desc="Searching for artist pages: ", unit="Artists"):
+            try:
+                # NORMALIZE THE ARTIST NAME
+                artist = normalize.normalize(artist)
+                
+                # DEFINE THE PYWIKIBOT SITE TO SEARCH
+                site = pywikibot.Site("en", "wikipedia")
+
+                # RECEIVE WIKIPEDIA PAGE FROM PYWIKIBOT, THAT CORRESPONDS TO THE ARTIST
+                page = pywikibot.Page(site, f"{artist}")
+
+                # FIND WIKIPEDIA PAGE ID
+                item = pywikibot.ItemPage.fromPage(page)
+
+                # CLEAN WIKIPEDIA PAGE ID
+                clean_id = self.id_cleaner(item)
+                
+                # CLEAN ARTIST NAME
+                artist = present.title(artist)
+
+                # CREATE DICTIONARY FOR THE ARTIST PAGE
+                artist_page = {'name': artist, 'id': clean_id}
+
+                # APPEND THE ARTIST PAGE TO ARTIST PAGES LIST
+                artist_page_list.append(artist_page.copy())
+                
+                # INCREASE COUNTER BY 1
+                counter += 1
+                tqdm.write(f'Artists found: {counter}/{total_searches}')
+
+            # IF A NOPAGEERROR IS RETURNED FROM PYWIKIBOT, CONTINUE
+            except pywikibot.exceptions.NoPageError:
+                continue
+            
+            # IF AN INVALIDTITLEERROR IS RETRUNED FROM PYWIKIBOT, CONTINUE
+            except (pywikibot.exceptions.InvalidTitleError) as err:
+                print(err)
+                continue
+        
+        # RETURN THE LIST OF ARTIST PAGE DICTIONARIES
+        return artist_page_list
+
+    def id_cleaner(self, item):
+        
+        # TURN THE ITEM TO STRING FORMAT
+        item_str = str(item)
+
+        # SPLIT THE STRING ITEMS ON SEMI-COLON INTO LIST
+        item_items = item_str.split(":")
+        
+        # SELECT THE SECOND ITEM IN THE LIST
+        id_half = item_items[1]
+        
+        # REMOVE THE SQUARE BRACKETS FROM LIST
+        clean_id = id_half.replace("]", "")
+
+        # RETURN THE CLEANED ID
+        return clean_id 
+    
+# WIKI MAIN LOGIC
+class Wiki(WikipediaScraper, WikidataScraper):
+
+    def scrape(artist_names, fields=all_valid_properties):
+        wikipedia = WikipediaScraper()
+        wiki_pages = wikipedia.scrape(artist_names)
+        WikidataScraper.scrape(wiki_pages, fields)

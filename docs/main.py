@@ -30,9 +30,7 @@ ARGS: SEARCH-BY (GENRE, ARTIST NAME, LOCATION, GENRE & LOCATION),
 RETURNS: DATASHEET WITH DESIRED FIELDS
 
 '''
-
-import wikidata_scraper
-import wikipedia_scraper
+from wikiscraper import Wiki
 from file import File
 from inventory import data
 from tqdm import tqdm
@@ -41,30 +39,34 @@ import os
 dire = os.getcwd()
 
 # DEFINE INPUT FILE PARAMS
-input_filename = f'names_of_artists.xlsx'
+input_filename = f'names_of_artists.csv'
 input_filepath = f'{dire}/input'
 
 # DEFINE OUTPUT FILE PARAMS
 output_filename = 'FindArtists'
 output_filepath = f'{dire}/output'
 
-# INIT WIKIPEDIA AND WIKIDATA SCRAPERS
-wikipedia = wikipedia_scraper.WikipediaScraper()
-wikidata = wikidata_scraper.WikidataScraper()
+# DEFINE USER FIELDS
 
-def run():
+def run(search_by=0):
 
-    # OPEN THE USER INPUT DATAFRAME
-    df = File.read(input_filename, input_filepath, sample=True, sample_size=100)
+    if search_by == 0:
+        # OPEN THE USER INPUT DATAFRAME
+        df = File.read(input_filename, input_filepath, sample=True, sample_size=100)
 
-    # PUT THE COLUMN CALLED 'NAME' TO LIST
-    artist_names = df['NAME'].tolist()
+        # PUT THE COLUMN CALLED 'NAME' TO LIST
+        artist_names = df['NAME'].tolist()
+
+    elif search_by == 1:
+        artist_names = []
+        pass
+
+    elif search_by == 3:
+        artist_names = []
+        pass
 
     # SCRAPE WIKIPEDIA TO FIND WIKI IDS
-    artist_wiki_pages = wikipedia.scrape(artist_names)
-
-    # SCRAPE WIKIPEDIA TO FIND ARTIST DATA
-    wikidata.scrape(artist_wiki_pages)
+    Wiki.scrape(artist_names)
 
     # WRITE DATA TO FILE
     File.write(output_filename, output_filepath, data)
