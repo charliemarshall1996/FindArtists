@@ -30,44 +30,26 @@ ARGS: SEARCH-BY (GENRE, ARTIST NAME, LOCATION, GENRE & LOCATION),
 RETURNS: DATASHEET WITH DESIRED FIELDS
 
 '''
-from wikiscraper import Wiki
+
+import argparse
 from file import File
-from inventory import data
-from tqdm import tqdm
-import os
+from cache import Cache
 
-dire = os.getcwd()
+def main():
+    parser = argparse.ArgumentParser(description='Find artists in a file')
+    parser.add_argument('filename', metavar='filename', type=str, help='File containing artist names')
+    parser.add_argument('filepath', metavar='filepath', type=str, help='Path to file containing artists names')
+    parser.add_argument('output_filename', metavar='output_filename', type=str, help='Desired name for output file')
+    parser.add_argument('output_filepath', metavar='output_filepath', type=str, help='Desired output path')
+    args = parser.parse_args()
 
-# DEFINE INPUT FILE PARAMS
-input_filename = f'names_of_artists.csv'
-input_filepath = f'{dire}/input'
+    artist_names = File.read(args.filename, args.filepath)
+    # Call your package function to search for artists based on the input file
+    artist_results = find_artists(artist_names)
 
-# DEFINE OUTPUT FILE PARAMS
-output_filename = 'FindArtists'
-output_filepath = f'{dire}/output'
+    if args.cache:
+        save_artists_to_cache(artist_results)
 
-# DEFINE USER FIELDS
-
-def run(search_by=0):
-
-    if search_by == 0:
-        # OPEN THE USER INPUT DATAFRAME
-        df = File.read(input_filename, input_filepath, sample=True, sample_size=100)
-
-        # PUT THE COLUMN CALLED 'NAME' TO LIST
-        artist_names = df['NAME'].tolist()
-
-    elif search_by == 1:
-        artist_names = []
-        pass
-
-    elif search_by == 3:
-        artist_names = []
-        pass
-
-    # SCRAPE WIKIPEDIA TO FIND WIKI IDS
-    Wiki.scrape(artist_names)
-
-    # WRITE DATA TO FILE
-    File.write(output_filename, output_filepath, data)
+def find_artists(artist_names):
     
+    pass
