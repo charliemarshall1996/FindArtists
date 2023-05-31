@@ -73,6 +73,7 @@ class Normalize:
 
         # Remove punctuation
         string = re.sub(r"[^\w\s]", "", string)
+
         return string
 
     def date(self, date):

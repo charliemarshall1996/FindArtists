@@ -16,24 +16,24 @@ class Logger:
         console_handler.setLevel(logging.DEBUG)
         console_handler.setFormatter(formatter)
 
-        file_handler = logging.FileHandler(self.log_file_path)
+        file_handler = logging.FileHandler(self.file_path)
         file_handler.setLevel(logging.DEBUG)
         file_handler.setFormatter(formatter)
 
         self.logger.addHandler(console_handler)
         self.logger.addHandler(file_handler)
 
-    def debug(self, message):
-        self.logger.debug(message)
+    def debug(self, message, *args):
+        self.logger.debug(message, args)
 
-    def info(self, message):
-        self.logger.info(message)
+    def info(self, message, *args):
+        self.logger.info(message, args)
 
-    def warning(self, message):
-        self.logger.warning(message)
+    def warning(self, message, *args):
+        self.logger.warning(message, args)
 
-    def error(self, message):
-        self.logger.error(message)
+    def error(self, message, *args):
+        self.logger.error(message, args)
 
-    def critical(self, message):
-        self.logger.critical(message)
+    def critical(self, message, *args):
+        self.logger.critical(message, args)

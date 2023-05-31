@@ -11,3 +11,6 @@ class Cache:
 
     def __setitem__(self, key, value):
         self.cache[key] = value
+
+    def __delitem__(self, key):
+        del self.cache[key]
